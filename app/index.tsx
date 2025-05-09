@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router';
 
 import { View, Button } from 'react-native';
-import Animated, { useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 
 export default function Home() {
   const width= useSharedValue(100)
@@ -18,17 +18,21 @@ export default function Home() {
     height.value= withSpring(randomHeight)
     backgroundColor.value= withTiming(randomColor, {duration:2000})
   }
+
+  const AnimatedStyle=useAnimatedStyle(()=>{
+    return {
+        width: width.value,
+        height: height.value,
+        backgroundColor: backgroundColor.value,
+    }
+  })
   return (
     <>
       <Stack.Screen options={{ title: 'Home' }} />
       <View>
       <Button title="Animate" onPress={Animation}/>
         <Animated.View 
-        style={{
-            width: width,
-            height: height,
-            backgroundColor: backgroundColor,
-        }}
+        style={AnimatedStyle}
         ></Animated.View>
         
       </View>
