@@ -1,19 +1,29 @@
-import { Stack, Link } from 'expo-router';
+import { Stack } from 'expo-router';
 
-import { Button } from '~/components/Button';
-import { Container } from '~/components/Container';
-import { ScreenContent } from '~/components/ScreenContent';
+import { View, Button } from 'react-native';
+import Animated, { useSharedValue } from 'react-native-reanimated';
 
 export default function Home() {
+  const width= useSharedValue(100)
+  const height= useSharedValue(100)
+
+  const Animation= () => {
+    height.value= Math.random()*300
+    width.value= Math.random()*300
+  }
   return (
     <>
       <Stack.Screen options={{ title: 'Home' }} />
-      <Container>
-        <ScreenContent path="app/index.tsx" title="Home"></ScreenContent>
-        <Link href={{ pathname: '/details', params: { name: 'Dan' } }} asChild>
-          <Button title="Show Details" />
-        </Link>
-      </Container>
+      <View>
+        <Animated.View 
+        style={{
+            width: width,
+            height: height,
+            backgroundColor: 'red',
+        }}
+        ></Animated.View>
+        <Button title="Animate" onPress={Animation}/>
+      </View>
     </>
   );
 }
