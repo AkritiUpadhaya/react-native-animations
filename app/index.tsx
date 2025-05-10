@@ -1,7 +1,8 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 
-import { View, Button, Text, TextInput } from 'react-native';
+import { View, Button, Text, TextInput, ScrollView, Image, TouchableOpacity } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import { data } from '~/assets/Images';
 
 export default function Home() {
   const width= useSharedValue(100)
@@ -36,15 +37,25 @@ export default function Home() {
   const AnimatedInput= Animated.createAnimatedComponent(TextInput)
   return (
     <>
-      <Stack.Screen options={{ title: 'Home' }} />
+    <ScrollView>
       <View>
       <Button title="Animate" onPress={Animation}/>
       <AnimatedInput style={[AnimatedInputStyle, {width: 200, height: 40, marginBottom:10}]} />
         <Animated.View 
         style={AnimatedStyle}
         ></Animated.View>
-       
+       {data.map((item, index)=>{
+        return(
+          <View key={index} style={{padding:10}}>
+            <TouchableOpacity onPress={()=>router.push({pathname:'/details', params:{item:JSON.stringify(item)}})}>
+            <Image source={{uri:item.image}} style={{width:200, height:200}}/>
+            </TouchableOpacity>
+          </View>
+        )
+          
+       })}
       </View>
+    </ScrollView>
     </>
   );
 }
