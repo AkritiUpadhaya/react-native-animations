@@ -48,7 +48,7 @@ export default function Home() {
         return(
           <View key={index} style={{padding:10}}>
             <TouchableOpacity onPress={()=>router.push({pathname:'/details', params:{item:JSON.stringify(item)}})}>
-            <Image source={{uri:item.image}} style={{width:200, height:200}}/>
+            <Animated.Image sharedTransitionTag={`image-${item.id}`} source={{uri:item.image}} style={{width:200, height:200}}/>
             </TouchableOpacity>
           </View>
         )
