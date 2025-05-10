@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 
-import { View, Button } from 'react-native';
+import { View, Button, Text, TextInput } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 
 export default function Home() {
@@ -26,15 +26,24 @@ export default function Home() {
         backgroundColor: backgroundColor.value,
     }
   })
+
+  const AnimatedInputStyle=useAnimatedStyle(()=>{
+    return {
+      backgroundColor: backgroundColor.value,
+    }
+   
+  })
+  const AnimatedInput= Animated.createAnimatedComponent(TextInput)
   return (
     <>
       <Stack.Screen options={{ title: 'Home' }} />
       <View>
       <Button title="Animate" onPress={Animation}/>
+      <AnimatedInput style={[AnimatedInputStyle, {width: 200, height: 40, marginBottom:10}]} />
         <Animated.View 
         style={AnimatedStyle}
         ></Animated.View>
-        
+       
       </View>
     </>
   );
