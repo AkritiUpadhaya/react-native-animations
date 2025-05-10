@@ -1,5 +1,6 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { View, Text } from 'react-native';
+import Animated, { FadeInLeft } from 'react-native-reanimated';
 
 export default function Details() {
   const {item}=useLocalSearchParams()
@@ -8,8 +9,8 @@ export default function Details() {
   return (
     <>
     <View>
-      <Text>{parsedItem.title}</Text>
-      <Text>{parsedItem.description}</Text>
+      <Animated.Text entering={FadeInLeft.duration(500).delay(500)}>{parsedItem.title}</Animated.Text>
+      <Animated.Text entering={FadeInLeft.duration(500).delay(700)}>{parsedItem.description}</Animated.Text>
     </View>
     </>
   );
